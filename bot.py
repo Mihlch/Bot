@@ -1,3 +1,6 @@
-def main(str, i, o):
-    In = open(i, 'r')
-    Out = open(o, 'w')
+In = open('input.txt', 'r')
+Out = open('output.txt', 'w')
+n = In.readline(1)
+print(n)
+In.close()
+Out.close()
