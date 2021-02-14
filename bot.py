@@ -2,12 +2,12 @@ import sys
 
 def Hod(prev, result):
     if prev == "00":
-        return "-0"
+        return "+0"
     else:
-        if result == 'a' or result == 'e':
-            return prev
+        if result == 'w' or result == 'r':
+            return "0+"
         else:
-            return "+0"
+            return prev
 
 if __name__ == '__main__':
     In = open(sys.argv[1], 'r')
@@ -22,6 +22,8 @@ if __name__ == '__main__':
     hod = Hod(n4, n5)
     n7 = str(n7)
     hod = str(hod)
-    Out.write(hod + n6 + n7)
+    Out.write(hod)
+    Out.write(n6)
+    Out.write(n7)
     In.close()
     Out.close()
