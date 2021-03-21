@@ -354,10 +354,11 @@ def main(argv=None):
     rCoordY = int(taskTypeLst[2])
     print ("Robot coord: " + str(rCoordX) + ", " + str(rCoordY))
     arena[rCoordX][rCoordY] = frobots
-    wCoordX = int(taskTypeLst[3])
-    wCoordY = int(taskTypeLst[4])
-    print ("Wall coord: " + str(wCoordX) + ", " + str(wCoordY))
-    arena[wCoordX][wCoordY] = wall
+    for i in range(3, len(taskTypeLst), 2):
+      wCoordX = int(taskTypeLst[i])
+      wCoordY = int(taskTypeLst[i + 1])
+      print ("Wall coord: " + str(wCoordX) + ", " + str(wCoordY))
+      arena[wCoordX][wCoordY] = wall
     robotName = content[2].rstrip()
     print ("robotName = " + robotName)
     robots.append(robotName)

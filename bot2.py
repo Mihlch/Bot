@@ -1,21 +1,32 @@
 import sys
 
 def Hod(prev, result, raz, nhod, pam):
-    if prev == "00":
+     if prev == "00":
         return "+0"
-    else:
-        if (result == 'w' or result == 'r') and (prev == '+0' and int(nhod) < int(raz)):
-            return "0-"
-        elif (result == 'w' or result == 'r') and prev == '0-':
-            return "-0"
-        elif (result == 'w' or result == 'r') and (prev == '-0' or prev == '+0'):
-            return '0+'
-        elif prev == '0+' and pam[nhod-2] == '+0':
-                return '-0'
-        elif prev == '0+':
-            return '+0'
-        else:
-            return prev
+    # else:
+    #     if (result == 'w' or result == 'r') and (prev == '+0' and int(nhod) < int(raz)):
+    #         return "0-"
+    #     elif (result == 'w' or result == 'r') and prev == '0-':
+    #         return "-0"
+    #     elif (result == 'w' or result == 'r') and (prev == '-0' or prev == '0+') and (pam[nhod-1] == '0+'):
+    #         return '0-'
+    #     elif (result == 'w' or result == 'r') and (prev == '-0' or prev == '+0') and (pam[nhod-1] == '0-'):
+    #         return '0+'
+    #     elif result == 'e' and prev == "-0":
+    #         return "0+"
+    #     elif prev == "-0":
+    #         return "+0"
+    #     elif prev == "+0" and result == 'e':
+    #         return "-0"
+    #     elif prev == "-0" and result == 'e':
+    #         return "0+"
+    #     elif prev == '0+' and pam[nhod-2] == '+0':
+    #             return '-0'
+    #     elif prev == '0+' and result != 'e':
+    #         return '+0'
+    #     else:
+    #         return prev
+
 
 def List_to_streing(l):
     s = ''

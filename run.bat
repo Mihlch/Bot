@@ -1,3 +1,3 @@
 @del /q output\*
-@python engine\engine.py tests\test1.txt output\test1.txt
+@python engine\engine.py tests\test2.txt output\test2.txt
  
