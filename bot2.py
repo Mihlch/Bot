@@ -1,32 +1,35 @@
 import sys
+import json
+
+global classmap
+global n1
+global w
+
+def wall_in_map(prev):
+    global classmap
+    global w
+    x = classmap.x
+    y = classmap.y
+    if prev == "+0":
+        classmap.arr[x][y - 1] = 99
+    elif prev == "-0":
+        classmap.arr[x][y + 1] = 99
+    elif prev == "0+":
+        classmap.arr[x + 1][y] = 99
+    elif prev == "0-":
+        classmap.arr[x - 1][y] = 99
+    w += 1
 
 def Hod(prev, result, raz, nhod, pam):
-     if prev == "00":
+    global classmap
+    if prev == "00":
         return "+0"
-    # else:
-    #     if (result == 'w' or result == 'r') and (prev == '+0' and int(nhod) < int(raz)):
-    #         return "0-"
-    #     elif (result == 'w' or result == 'r') and prev == '0-':
-    #         return "-0"
-    #     elif (result == 'w' or result == 'r') and (prev == '-0' or prev == '0+') and (pam[nhod-1] == '0+'):
-    #         return '0-'
-    #     elif (result == 'w' or result == 'r') and (prev == '-0' or prev == '+0') and (pam[nhod-1] == '0-'):
-    #         return '0+'
-    #     elif result == 'e' and prev == "-0":
-    #         return "0+"
-    #     elif prev == "-0":
-    #         return "+0"
-    #     elif prev == "+0" and result == 'e':
-    #         return "-0"
-    #     elif prev == "-0" and result == 'e':
-    #         return "0+"
-    #     elif prev == '0+' and pam[nhod-2] == '+0':
-    #             return '-0'
-    #     elif prev == '0+' and result != 'e':
-    #         return '+0'
-    #     else:
-    #         return prev
-
+    if w < raz*4 + 2:
+        if result == "w":
+            wall_in_map(prev)
+        elif prev == "+0" and result != "w" and result != "r":
+            classmap.y -= 1
+            return prev
 
 def List_to_streing(l):
     s = ''
@@ -34,8 +37,20 @@ def List_to_streing(l):
         s = s + i + ' '
     return s
 
+class Map:
+    x = None
+    y = None
+    arr = None
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.arr = []
+
 
 if __name__ == '__main__':
+    global classmap
+    global n1
+    global w
     In = open(sys.argv[1], 'r')
     Out = open(sys.argv[2], 'w')
     fin = [s.strip() for s in In]
@@ -44,16 +59,27 @@ if __name__ == '__main__':
     n3 = fin[2]
     n4 = fin[3]
     n5 = fin[4]
-    n6 = 2**(n1**2)*16
-    if len(fin) > 6:
-        n7 = fin[6].split()
+    n7 = None
+    if n2 == 0:
+        classmap = Map()
+        w = 0
+        classmap.x = n1
+        classmap.y = n1
+        for i in range(n1*2-1):
+            classmap.arr.append([])
+            for j in range(n1 * 2 - 1):
+                classmap.arr[i].append(0)
     else:
-        n7 = []
+        n7 = fin[6]
+        classmap = json.loads(n7)
+    classmap.arr[classmap.x][classmap.y] = 10
     hod = Hod(n4, n5, n1, n2, n7)
     hod = str(hod)
-    n7.append(hod)
+    strmap = json.dumps(classmap, cls=type(classmap))
+    lenmap = len(strmap)
+    print(strmap)
     Out.write(hod + '\n')
-    Out.write(str(n6)+'\n')
-    Out.write(List_to_streing(n7))
+    Out.write(str(lenmap*4) + '\n')
+    Out.write(strmap)
     In.close()
     Out.close()
