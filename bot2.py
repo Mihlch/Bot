@@ -22,6 +22,7 @@ def wall_in_map(prev):
 
 def Hod(prev, result, raz, nhod, pam):
     global classmap
+    global w
     if prev == "00":
         return "+0"
     if w < raz*4 + 2:
@@ -42,9 +43,13 @@ class Map:
     y = None
     arr = None
 
-    def __init__(self) -> None:
+    def __init__(self, x, y, arr=None) -> None:
         super().__init__()
-        self.arr = []
+        self.y = y
+        self.arr = arr
+        self.x = x
+        if arr is None:
+            self.arr = []
 
 
 if __name__ == '__main__':
@@ -61,21 +66,20 @@ if __name__ == '__main__':
     n5 = fin[4]
     n7 = None
     if n2 == 0:
-        classmap = Map()
+        classmap = Map(n1, n1)
         w = 0
-        classmap.x = n1
-        classmap.y = n1
         for i in range(n1*2-1):
             classmap.arr.append([])
             for j in range(n1 * 2 - 1):
                 classmap.arr[i].append(0)
     else:
         n7 = fin[6]
-        classmap = json.loads(n7)
+        classmap_dict = json.loads(n7)
+        classmap = Map(**classmap_dict)
     classmap.arr[classmap.x][classmap.y] = 10
     hod = Hod(n4, n5, n1, n2, n7)
     hod = str(hod)
-    strmap = json.dumps(classmap, cls=type(classmap))
+    strmap = json.dumps(classmap.__dict__)
     lenmap = len(strmap)
     print(strmap)
     Out.write(hod + '\n')
