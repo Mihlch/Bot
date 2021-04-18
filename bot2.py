@@ -15,16 +15,20 @@ def wall_in_map(prev):
     y = classmap.y
     if prev == "+0":
         classmap.arr[x - 1][y] = 4
-        classmap.arr[x + n1][y] = 4 # зделать проверку на  выход из массива через if
+        if x + n1 < (n1+1)*2:
+            classmap.arr[x + n1][y] = 4
     elif prev == "-0":
         classmap.arr[x + 1][y] = 4
-        classmap.arr[x - n1][y] = 4
+        if x - n1 < (n1 + 1) * 2:
+            classmap.arr[x - n1][y] = 4
     elif prev == "0+":
         classmap.arr[x][y + 1] = 4
-        classmap.arr[x][y - n1] = 4
+        if y - n1 < (n1 + 1) * 2:
+            classmap.arr[x][y - n1] = 4
     elif prev == "0-":
         classmap.arr[x][y - 1] = 4
-        classmap.arr[x][y + n1] = 4
+        if y + n1 < (n1 + 1) * 2:
+            classmap.arr[x][y + n1] = 4
 
 
 def prov_sosed(x, y):
